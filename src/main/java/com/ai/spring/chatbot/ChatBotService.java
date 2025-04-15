@@ -4,6 +4,7 @@ import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.mistralai.MistralAiChatModel;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 
 
 @Service
@@ -26,10 +27,10 @@ public class ChatBotService {
 //                .content();
 //    }
 
-    public String chatWithOllama(String message) {
+    public Flux<String> chatWithOllama(String message) {
         return ollamaClient.prompt()
                 .user(message)
-                .call()
+                .stream()
                 .content();
     }
 
