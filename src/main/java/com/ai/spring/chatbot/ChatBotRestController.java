@@ -1,6 +1,7 @@
 package com.ai.spring.chatbot;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
@@ -20,9 +21,11 @@ public class ChatBotRestController {
     }
 
 
-    @GetMapping("/ollama/chat")
-    public Flux<String> handleChatWithOllama(@RequestParam String message) {
-        return chatBotService.chatWithOllama(message);
+    @GetMapping("/ai/chat")
+    public Flux<String> handleChatWithAI(@RequestParam String message,
+                                         @RequestHeader(required = false) String sessionId,
+                                         @RequestHeader(required = false) String model) {
+        return chatBotService.chatWithAI(message);
     }
 
     @GetMapping("/mistral/chat")
